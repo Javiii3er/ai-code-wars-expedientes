@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pruebas – Expedientes</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .resumen { font-size: 1.1rem; font-weight: 600; }
+    .grupo h3 { margin: 1.25rem 0 0.5rem; color: var(--color-primario); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid #e1e4e8; vertical-align: top; }
+    .ok { color: var(--color-exito); font-weight: 600; }
+    .falla { color: var(--color-error); font-weight: 600; }
+    .detalle { color: #555; }
+    .zona-oculta { display: none; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Pruebas automáticas de reglas</h1>
+    <p class="aviso">Usa datos temporales: no modifica los expedientes guardados de la aplicación.</p>
+  </header>
+
+  <main>
+    <section class="tarjeta">
+      <p id="resumen" class="resumen">Ejecutando…</p>
+      <button type="button" class="boton boton-primario" onclick="location.reload()">Volver a ejecutar</button>
+      <div id="resultados"></div>
+    </section>
+
+    <!-- Contenedores que usan las vistas; ocultos durante las pruebas -->
+    <div class="zona-oculta">
+      <div id="mensaje"></div>
+      <section id="seccion-listado"><h2>Expedientes</h2></section>
+      <section id="seccion-detalle" hidden><h2>Detalle</h2></section>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/consulta.js"></script>
+  <script src="js/seguimiento.js"></script>
+  <script src="js/pruebas.js"></script>
+</body>
+</html>
