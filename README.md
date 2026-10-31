@@ -130,32 +130,40 @@ ai-code-wars-expedientes/
 ---
 
 ## 4. Requisitos y ejecución
-- Requisito: un navegador moderno (Chrome, Edge o Firefox).
-- Ejecutar: abrir `index.html` con doble clic, o desde Visual Studio 2022 con **Ver en el explorador**.
-- Los datos se conservan en el navegador al recargar o volver a abrir la app. Para empezar de cero, borrar los datos del sitio en el navegador.
+
+**Requisitos:** un navegador moderno (Chrome, Edge o Firefox). No requiere instalar dependencias, servidor ni base de datos.
+
+**Ejecutar (cualquiera de estas opciones):**
+1. Abrir `index.html` con doble clic.
+2. En Visual Studio 2022: **Archivo → Abrir → Carpeta**, clic derecho en `index.html` → **Ver en el explorador**.
+3. Con Python instalado, desde la carpeta del proyecto: `python -m http.server 5500` y abrir `http://localhost:5500`.
+
+**Datos:** se guardan en `localStorage` del navegador y se conservan al recargar o cerrar y volver a abrir.
+Cada navegador y cada forma de abrir la app (archivo o `localhost`) guarda sus datos por separado, por lo que se debe usar **siempre la misma**.
+Para empezar de cero: herramientas de desarrollador (F12) → *Application* → *Local Storage* → borrar la clave `bufete-expedientes`.
 
 ---
 
 ## 5. Decisiones y uso razonado de la IA
-_Pendiente: se completará durante el desarrollo._
+Herramienta usada: Claude (asistente de IA). Cada integrante registró una decisión de su parte.
 
 | # | Decisión o necesidad | Aporte de la IA | Decisión del equipo y razón | Cómo se comprobó |
 |---|---|---|---|---|
-| 1 | | | | |
+| 1 | **Identificador único de cada expediente** (Javier). Debía ser automático, no repetirse y ser fácil de buscar. | Propuso un contador guardado junto con los datos para generar `EXP-0001`, `EXP-0002`… Se compararon alternativas: `Date.now()` y `crypto.randomUUID()`. | **Aceptado el contador.** Se descartó `Date.now()` porque dos aperturas en el mismo milisegundo pueden repetir el ID, y el UUID porque es largo y difícil de dictar o buscar. El contador se guarda en `localStorage` para que no se reinicie al recargar (R2). Se mantiene el formato de 4 dígitos. | Se crearon 2 expedientes (`EXP-0001`, `EXP-0002`), se recargó la página y el siguiente fue `EXP-0003`: no se repitió. |
 | 2 | | | | |
 | 3 | | | | |
 
 ---
 
 ## 6. Lista de comprobación
-_Pendiente: se completará al probar._
+Pruebas manuales en el navegador. Fecha: 31/10/2026.
 
-| Recorrido | Resultado observado | Estado |
+| Recorrido | Pasos y resultado observado | Estado |
 |---|---|---|
-| 1. Apertura | | |
-| 2. Consulta | | |
-| 3. Seguimiento y cierre | | |
-| Persistencia al recargar | | |
+| 1. Apertura | Enviar el formulario vacío mostró 3 errores, uno por campo obligatorio. Persona y responsable con solo espacios: rechazados con error en esos 2 campos; el asunto válido no se marcó. Dos aperturas válidas generaron `EXP-0001` y `EXP-0002` con estado *Abierto*, fecha y hora, y la entrada "Expediente abierto" en el historial. Los espacios al inicio y al final se eliminan al guardar. | Cumple |
+| 2. Consulta | _Pendiente: se probará al integrar `consulta.js`._ | — |
+| 3. Seguimiento y cierre | _Pendiente: se probará al integrar `seguimiento.js`._ | — |
+| Persistencia al recargar | Tras recargar, los expedientes creados siguen en `localStorage` y el contador continúa (`EXP-0003`). Falta repetirla con actividades y cierre. | Parcial |
 
 ---
 
@@ -163,7 +171,12 @@ _Pendiente: se completará al probar._
 _Pendiente._
 
 ## 8. Limitaciones conocidas
-_Pendiente._
+- Los datos viven solo en el navegador donde se crearon; no se comparten entre equipos ni entre navegadores.
+- Borrar los datos de navegación elimina los expedientes. No hay copia de seguridad ni exportación.
+- No se pueden editar ni eliminar expedientes o actividades (no se exige).
+- Sin autenticación: cualquiera con acceso al navegador puede ver y registrar información.
+- La fecha y hora dependen del reloj del equipo.
 
 ## 9. Recursos externos
 - Asistente de IA (Claude) para análisis, diseño, código y revisión, según lo declarado en la sección 5.
+- No se usaron bibliotecas ni frameworks externos.
