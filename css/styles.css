@@ -1,0 +1,43 @@
+:root {
+  --color-primario: #1f3a5f;
+  --color-fondo: #f5f7fa;
+  --color-texto: #1d1d1f;
+  --color-error: #b3261e;
+  --color-exito: #1e7b34;
+  --radio: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.5;
+}
+
+.app-header {
+  background: var(--color-primario);
+  color: #fff;
+  padding: 1rem 1.5rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.aviso {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  opacity: 0.85;
+}
+
+main {
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
