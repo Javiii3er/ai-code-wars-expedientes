@@ -165,7 +165,7 @@ Además, `pruebas.html` ejecuta 23 comprobaciones automáticas de las reglas, ag
 | Recorrido | Pasos y resultado observado | Estado |
 |---|---|---|
 | 1. Apertura | Enviar el formulario vacío mostró 3 errores, uno por campo obligatorio. Persona y responsable con solo espacios: rechazados con error en esos 2 campos; el asunto válido no se marcó. Dos aperturas válidas generaron `EXP-0001` y `EXP-0002` con estado *Abierto*, fecha y hora, y la entrada "Expediente abierto" en el historial. Los espacios al inicio y al final se eliminan al guardar. | Cumple |
-| 2. Consulta | _Pendiente: se probará al integrar `consulta.js`._ | — |
+| 2. Consulta | El listado muestra identificador, persona, responsable y estado. Buscar `EXP-0001`, `exp-0001` o parte del nombre (`aNa`) encuentra el expediente correcto; un texto inexistente muestra «No se encontraron expedientes para…». *Ver detalle* muestra todos los datos y el historial en orden cronológico, con apertura, actividades y cambios de estado en colores y etiquetas distintos. `pruebas.html`: 7/7. | Cumple |
 | 3. Seguimiento y cierre | _Pendiente: se probará al integrar `seguimiento.js`._ | — |
 | 4. Reapertura y trazabilidad | Lógica de reapertura verificada: rechaza motivo vacío o de espacios y reaperturas en Abierto o En seguimiento; reabre a En seguimiento conservando ID, datos, actividades y el cierre anterior, con evento en el historial. _Pendiente: flujo completo de segundo cierre y recarga al integrar `seguimiento.js`._ | Parcial |
 | Persistencia al recargar | Tras recargar, los expedientes creados siguen en `localStorage` y el contador continúa (`EXP-0003`). Falta repetirla con actividades y cierre. | Parcial |
