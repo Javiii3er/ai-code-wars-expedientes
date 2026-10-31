@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expedientes – Bufete Popular</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/consulta.css">
+  <link rel="stylesheet" href="css/seguimiento.css">
 </head>
 <body>
   <header class="app-header">
@@ -51,9 +53,22 @@
         <button type="submit" class="boton boton-primario">Abrir expediente</button>
       </form>
     </section>
+
+    <!-- Compañera 1 (js/consulta.js): listado y búsqueda -->
+    <section class="tarjeta" id="seccion-listado" aria-labelledby="titulo-listado">
+      <h2 id="titulo-listado">Expedientes</h2>
+    </section>
+
+    <!-- Compañera 1 (js/consulta.js): detalle e historial.
+         Dentro, Compañera 2 (js/seguimiento.js) dibuja en #acciones-expediente. -->
+    <section class="tarjeta" id="seccion-detalle" aria-labelledby="titulo-detalle" hidden>
+      <h2 id="titulo-detalle">Detalle del expediente</h2>
+    </section>
   </main>
 
   <script src="js/storage.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/consulta.js"></script>
+  <script src="js/seguimiento.js"></script>
 </body>
 </html>

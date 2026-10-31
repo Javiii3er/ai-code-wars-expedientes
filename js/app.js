@@ -31,6 +31,17 @@ function limpiar(texto) {
   return (texto || "").trim();
 }
 
+function buscarExpedientePorId(id) {
+  return datos.expedientes.find((exp) => exp.id === id) || null;
+}
+
+// Escapa texto del usuario antes de insertarlo con innerHTML.
+function escaparHtml(texto) {
+  const div = document.createElement("div");
+  div.textContent = texto == null ? "" : String(texto);
+  return div.innerHTML;
+}
+
 function generarId() {
   datos.contador += 1;
   return "EXP-" + String(datos.contador).padStart(4, "0");
@@ -149,8 +160,10 @@ function manejarApertura(evento) {
     `Expediente ${exp.id} abierto el ${formatearFecha(exp.fechaApertura)} con estado "${exp.estado}".`,
     "exito"
   );
+  actualizarListado();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("form-apertura").addEventListener("submit", manejarApertura);
+  actualizarListado();
 });
