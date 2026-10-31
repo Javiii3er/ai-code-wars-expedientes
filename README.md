@@ -59,6 +59,7 @@ El Bufete Popular atiende a personas de escasos recursos y necesita saber, para 
 - **R7.** La apertura y cada cambio de estado se guardan automáticamente en el historial.
 - **R8.** Un expediente cerrado se puede consultar, pero no admite actividades ni cambios de estado.
 - **R9.** No se editan ni eliminan expedientes o actividades.
+- **R10 (Parte 2).** `Cerrado → En seguimiento` mediante *Reabrir*, con motivo no vacío. Se conservan los datos, las actividades y todos los cierres previos (fecha y motivo). Se registra un evento en el historial. Se rechaza si el estado es Abierto o En seguimiento. Modifica R8 solo en esta transición: un expediente cerrado sigue sin admitir actividades.
 
 ### 1.6 Supuestos
 - **S1.** Un solo usuario por navegador; los datos viven en el `localStorage` de ese navegador.
@@ -151,7 +152,7 @@ Herramienta usada: Claude (asistente de IA). Cada integrante registró una decis
 | # | Decisión o necesidad | Aporte de la IA | Decisión del equipo y razón | Cómo se comprobó |
 |---|---|---|---|---|
 | 1 | **Identificador único de cada expediente** (Javier). Debía ser automático, no repetirse y ser fácil de buscar. | Propuso un contador guardado junto con los datos para generar `EXP-0001`, `EXP-0002`… Se compararon alternativas: `Date.now()` y `crypto.randomUUID()`. | **Aceptado el contador.** Se descartó `Date.now()` porque dos aperturas en el mismo milisegundo pueden repetir el ID, y el UUID porque es largo y difícil de dictar o buscar. El contador se guarda en `localStorage` para que no se reinicie al recargar (R2). Se mantiene el formato de 4 dígitos. | Se crearon 2 expedientes (`EXP-0001`, `EXP-0002`), se recargó la página y el siguiente fue `EXP-0003`: no se repitió. |
-| 2 | | | | |
+| 2 | **Parte 2: Reabrir expediente** (Javier). Cerrado → En seguimiento con motivo obligatorio, sin perder cierres previos. **Impacto:** modifica R8, que prohibía cambiar el estado de un cerrado; el modelo guardaba un solo `motivoCierre`/`fechaCierre`, que un segundo cierre habría sobrescrito. | Propuso dos opciones: (a) convertir el cierre en una lista `cierres[]`, cambiando el código de cierre ya repartido; o (b) al reabrir, mover el cierre actual a `cierresAnteriores[]` y registrar un evento `cambio_estado` con motivo. También propuso agregar la acción en un archivo nuevo que extiende `renderAcciones`. | **Elegimos (b)** porque no obliga a cambiar `seguimiento.js`, que otra integrante estaba desarrollando en paralelo, y evita conflictos. La regla se valida en `reabrirExpediente()` (lógica), no solo en la interfaz, como pide el enunciado. Se agregó `obtenerCierres()` para listar todos los cierres. | `pruebas.html`, bloque *Recorrido 4*: rechaza motivo vacío o de espacios; rechaza reabrir en Abierto o En seguimiento; al reabrir conserva ID, datos, actividades y el cierre previo y registra un evento con fecha, motivo y transición. |
 | 3 | | | | |
 
 ---
@@ -166,6 +167,7 @@ Además, `pruebas.html` ejecuta 23 comprobaciones automáticas de las reglas, ag
 | 1. Apertura | Enviar el formulario vacío mostró 3 errores, uno por campo obligatorio. Persona y responsable con solo espacios: rechazados con error en esos 2 campos; el asunto válido no se marcó. Dos aperturas válidas generaron `EXP-0001` y `EXP-0002` con estado *Abierto*, fecha y hora, y la entrada "Expediente abierto" en el historial. Los espacios al inicio y al final se eliminan al guardar. | Cumple |
 | 2. Consulta | _Pendiente: se probará al integrar `consulta.js`._ | — |
 | 3. Seguimiento y cierre | _Pendiente: se probará al integrar `seguimiento.js`._ | — |
+| 4. Reapertura y trazabilidad | Lógica de reapertura verificada: rechaza motivo vacío o de espacios y reaperturas en Abierto o En seguimiento; reabre a En seguimiento conservando ID, datos, actividades y el cierre anterior, con evento en el historial. _Pendiente: flujo completo de segundo cierre y recarga al integrar `seguimiento.js`._ | Parcial |
 | Persistencia al recargar | Tras recargar, los expedientes creados siguen en `localStorage` y el contador continúa (`EXP-0003`). Falta repetirla con actividades y cierre. | Parcial |
 
 ---
