@@ -71,18 +71,18 @@ El Bufete Popular atiende a personas de escasos recursos y necesita saber, para 
 
 ## 2. Equipo y responsabilidades
 
-| Integrante | Rol principal | Responsabilidades |
-|---|---|---|
-| Javier Rivera | Coordinación / integración | Repositorio, integración de aportes, README, commits de hitos. |
-| _Integrante 2_ | Lógica y datos | Modelo de datos, reglas de estado, persistencia. |
-| _Integrante 3_ | Interfaz | Formularios, listado, detalle, mensajes. |
-| _Integrante 4_ | Pruebas | Recorridos de comprobación y registro de resultados. |
-| _Integrante 5_ | Decisiones con IA | Revisión crítica de propuestas de IA y tabla de decisiones. |
+| Integrante | Carné | Rol principal | Responsabilidades | Archivos |
+|---|---|---|---|---|
+| Javier Rivera | _pendiente_ | Coordinación, apertura e integración | Repositorio, apertura de expedientes, integración de aportes, README, pruebas finales y commits de hitos. | `js/app.js`, `js/storage.js`, `index.html`, `css/styles.css`, `README.md` |
+| Karla Waleska Rodríguez Arévalo | 1790-22-9763 | Consulta | Listado, búsqueda por identificador o persona, detalle e historial cronológico. | `js/consulta.js`, `css/consulta.css` |
+| Nahomi Suseth López Andrade | 1790-23-21320 | Seguimiento | Registro de actividades, cambios de estado y cierre con sus reglas (R3–R8). | `js/seguimiento.js`, `css/seguimiento.css` |
+
+Las tres integrantes aportan una de las tres decisiones con IA (sección 5) y comprueban su propia parte; Javier ejecuta los recorridos completos.
 
 ### Forma de integrar los aportes
-- Rama principal `main`; cambios pequeños y frecuentes.
-- Antes de cada `push`: `git pull`, abrir la app y verificar que nada se rompió.
-- Archivos separados por responsabilidad (`storage.js`, `app.js`, `styles.css`) para evitar conflictos.
+- Rama principal `main`; cambios pequeños y frecuentes desde la cuenta de GitHub de cada integrante.
+- Antes de empezar y antes de cada `push`: `git pull`, abrir la app y verificar que nada se rompió.
+- Cada integrante edita solo sus archivos; los módulos se comunican mediante funciones acordadas (ver `GUIA-EQUIPO.md`).
 - Quien integra revisa que el código incorporado (incluido el generado con IA) se entienda y funcione.
 
 ### Convención de commits
@@ -109,15 +109,20 @@ Aplicación web estática, sin servidor ni compilación.
 ai-code-wars-expedientes/
 ├── index.html        # Estructura de la interfaz
 ├── css/
-│   └── styles.css    # Estilos
+│   ├── styles.css    # Estilos generales
+│   ├── consulta.css  # Estilos de listado y detalle
+│   └── seguimiento.css
 ├── js/
 │   ├── storage.js    # Lectura/escritura en localStorage
-│   └── app.js        # Reglas del negocio y manejo de la interfaz
+│   ├── app.js        # Datos compartidos, utilidades y apertura
+│   ├── consulta.js   # Listado, búsqueda, detalle e historial
+│   └── seguimiento.js# Actividades, estados y cierre
+├── GUIA-EQUIPO.md    # Reparto de trabajo y prompts de IA
 └── README.md
 ```
 
-- **Presentación:** `index.html` + `css/styles.css`.
-- **Lógica:** `js/app.js` (validaciones, transiciones de estado, historial, búsqueda).
+- **Presentación:** `index.html` + hojas de estilo por módulo.
+- **Lógica:** `app.js` (apertura y utilidades), `consulta.js` (búsqueda y vistas), `seguimiento.js` (reglas de estado e historial).
 - **Persistencia:** `js/storage.js` guarda todo en `localStorage` como JSON.
 
 **Stack:** HTML5, CSS3, JavaScript (sin frameworks). **IDE:** Visual Studio 2022 (Abrir → Carpeta).

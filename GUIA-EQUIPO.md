@@ -1,4 +1,4 @@
-# Guía del equipo – cómo trabajar con su IA
+﻿# Guía del equipo – cómo trabajar con su IA
 
 Esta guía explica a cada integrante **qué le toca**, **cómo preparar su computadora** y **qué escribirle a su IA** para que entienda el contexto.
 
@@ -29,15 +29,15 @@ Esta guía explica a cada integrante **qué le toca**, **cómo preparar su compu
 
 | Integrante | Le toca | Archivos que puede editar |
 |---|---|---|
-| Compañera 1 | Listado, búsqueda, detalle e historial | `js/consulta.js`, `css/consulta.css` |
-| Compañera 2 | Actividades, estados y cierre | `js/seguimiento.js`, `css/seguimiento.css` |
+| Karla (Compañera 1) | Listado, búsqueda, detalle e historial | `js/consulta.js`, `css/consulta.css` |
+| Nahomi (Compañera 2) | Actividades, estados y cierre | `js/seguimiento.js`, `css/seguimiento.css` |
 | Javier | Apertura, integración, README, pruebas | `js/app.js`, `index.html`, `css/styles.css`, `README.md` |
 
 Si necesitan cambiar un archivo que no es suyo, avisen primero en el grupo.
 
 ---
 
-## 1. Compañera 1 – Consulta, búsqueda y detalle
+## 1. Karla (Compañera 1) – Consulta, búsqueda y detalle
 
 ### Prompt para su IA (copiar y pegar completo)
 
@@ -71,7 +71,7 @@ Si necesitan cambiar un archivo que no es suyo, avisen primero en el grupo.
 
 ---
 
-## 2. Compañera 2 – Actividades, estados y cierre
+## 2. Nahomi (Compañera 2) – Actividades, estados y cierre
 
 ### Prompt para su IA (copiar y pegar completo)
 
