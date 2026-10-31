@@ -178,6 +178,65 @@ grupo("Recorrido 3 – Seguimiento y cierre", (t) => {
   });
 });
 
+// ---------- Recorrido 4: Reapertura (Parte 2) ----------
+
+// Expediente cerrado armado a mano, para probar la reapertura por sí sola.
+function expedienteCerradoManual() {
+  const e = nuevoExpediente();
+  e.historial.push({ tipo: "actividad", fecha: ahora(), descripcion: "Entrevista", tipoActividad: "" });
+  e.estado = ESTADOS.CERRADO;
+  e.motivoCierre = "Primer cierre";
+  e.fechaCierre = ahora();
+  guardarDatos();
+  return e;
+}
+
+grupo("Recorrido 4 – Reapertura y trazabilidad", (t) => {
+  t("Rechaza reabrir con motivo vacío o de solo espacios", () => {
+    const e = expedienteCerradoManual();
+    verificar(!reabrirExpediente(e, "").ok, "Aceptó motivo vacío");
+    verificar(!reabrirExpediente(e, "   ").ok, "Aceptó solo espacios");
+    verificar(e.estado === ESTADOS.CERRADO, "El estado cambió");
+  });
+  t("Rechaza reabrir en Abierto o En seguimiento (lógica)", () => {
+    const e = nuevoExpediente();
+    verificar(!reabrirExpediente(e, "Motivo").ok, "Reabrió un expediente Abierto");
+    e.estado = ESTADOS.SEGUIMIENTO;
+    verificar(!reabrirExpediente(e, "Motivo").ok, "Reabrió uno En seguimiento");
+  });
+  t("Reabre a En seguimiento, conserva ID, datos, actividades y el cierre", () => {
+    const e = expedienteCerradoManual();
+    const id = e.id;
+    const largo = e.historial.length;
+    verificar(reabrirExpediente(e, "  Nueva información  ").ok, "No reabrió");
+    verificar(e.estado === ESTADOS.SEGUIMIENTO, `Estado: ${e.estado}`);
+    verificar(e.id === id && e.persona && e.asunto, "Cambiaron los datos");
+    verificar(contarTipo(e, "actividad") === 1, "Se perdieron actividades");
+    verificar(obtenerCierres(e).length === 1 && obtenerCierres(e)[0].motivo === "Primer cierre", "Se perdió el cierre previo");
+    const ev = e.historial[e.historial.length - 1];
+    verificar(e.historial.length === largo + 1, "No se agregó el evento");
+    verificar(ev.tipo === "cambio_estado" && ev.estadoAnterior === ESTADOS.CERRADO && ev.estadoNuevo === ESTADOS.SEGUIMIENTO, "Transición mal registrada");
+    verificar(ev.motivo === "Nueva información" && !isNaN(Date.parse(ev.fecha)), "Falta motivo o fecha en el evento");
+  });
+  t("Flujo completo: cerrar, reabrir, nueva actividad y segundo cierre", () => {
+    const e = nuevoExpediente();
+    requiere(pasarASeguimiento(e), "pasar a En seguimiento");
+    requiere(agregarActividad(e, "Actividad 1", ""), "agregar actividad");
+    requiere(cerrarExpediente(e, "Cierre uno"), "cerrar");
+    verificar(!agregarActividad(e, "No permitida", "").ok, "Aceptó actividad estando cerrado");
+    requiere(reabrirExpediente(e, "Llegó información"), "reabrir");
+    requiere(agregarActividad(e, "Actividad 2", ""), "agregar actividad tras reabrir");
+    requiere(cerrarExpediente(e, "Cierre dos"), "cerrar de nuevo");
+    const cierres = obtenerCierres(e);
+    verificar(cierres.length === 2, `Cierres conservados: ${cierres.length}`);
+    verificar(cierres[0].motivo === "Cierre uno" && cierres[1].motivo === "Cierre dos", "Motivos de cierre incorrectos");
+    verificar(cierres.every((c) => !isNaN(Date.parse(c.fecha))), "Falta fecha en algún cierre");
+    verificar(contarTipo(e, "actividad") === 2, "Se perdieron actividades");
+    const guardado = Storage.leer(CLAVE_DATOS, null).expedientes.find((x) => x.id === e.id);
+    verificar(obtenerCierres(guardado).length === 2, "Los cierres no quedaron guardados");
+  });
+});
+
 // ---------- Persistencia ----------
 grupo("Persistencia al recargar (3.5)", (t) => {
   t("Expediente cerrado y su historial quedan guardados", () => {
