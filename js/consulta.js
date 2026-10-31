@@ -114,7 +114,9 @@ function htmlEntradaHistorial(entrada) {
         const subtipo = entrada.tipoActividad ? ` (${escaparHtml(entrada.tipoActividad)})` : "";
         detalle = `<p>${escaparHtml(entrada.descripcion)}${subtipo}</p>`;
     } else if (tipo === "cambio_estado") {
+        // La descripción distingue cierre y reapertura (Parte 2).
         detalle =
+            (entrada.descripcion ? `<p><strong>${escaparHtml(entrada.descripcion)}</strong></p>` : "") +
             `<p>${escaparHtml(entrada.estadoAnterior)} → <strong>${escaparHtml(entrada.estadoNuevo)}</strong></p>` +
             (entrada.motivo ? `<p>Motivo: ${escaparHtml(entrada.motivo)}</p>` : "");
     } else {
