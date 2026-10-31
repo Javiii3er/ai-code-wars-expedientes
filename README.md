@@ -117,6 +117,7 @@ ai-code-wars-expedientes/
 │   ├── app.js        # Datos compartidos, utilidades y apertura
 │   ├── consulta.js   # Listado, búsqueda, detalle e historial
 │   └── seguimiento.js# Actividades, estados y cierre
+├── pruebas.html      # Comprobaciones automáticas (js/pruebas.js)
 ├── GUIA-EQUIPO.md    # Reparto de trabajo y prompts de IA
 └── README.md
 ```
@@ -157,6 +158,8 @@ Herramienta usada: Claude (asistente de IA). Cada integrante registró una decis
 
 ## 6. Lista de comprobación
 Pruebas manuales en el navegador. Fecha: 31/10/2026.
+
+Además, `pruebas.html` ejecuta 23 comprobaciones automáticas de las reglas, agrupadas por recorrido. Usa datos temporales y restaura los expedientes guardados al terminar. Se abre igual que `index.html`. La automatización es un apoyo; el enunciado no la exige.
 
 | Recorrido | Pasos y resultado observado | Estado |
 |---|---|---|
