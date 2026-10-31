@@ -1,1 +1,37 @@
-/* Estilos de actividades, estados y cierre (Compañera 2). Reutilizar variables de styles.css. */
+/* Estilos de actividades, estados y cierre. Reutiliza variables de styles.css. */
+
+.form-accion {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e1e4e8;
+}
+
+.form-accion:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.form-accion h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--color-primario);
+}
+
+.boton-peligro {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.boton-peligro:hover {
+  background: #8c1d17;
+}
+
+.aviso-cerrado {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radio);
+  background: #e6e8ec;
+  color: #333;
+  font-weight: 600;
+}
