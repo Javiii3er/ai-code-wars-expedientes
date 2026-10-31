@@ -5,6 +5,8 @@ Proyecto de la competencia **AI Code Wars – Tech Day UMG Boot Camp, 5.ª edici
 
 > Caso, reglas y datos **ficticios**. La aplicación no brinda asesoría jurídica.
 
+**Estado de entrega (31/10/2026):** núcleo (recorridos 1 a 3) y Parte 2 (reapertura, recorrido 4) completos. Persistencia verificada. `pruebas.html`: 27/27.
+
 ---
 
 ## 1. Ficha de análisis
