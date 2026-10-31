@@ -73,7 +73,7 @@ El Bufete Popular atiende a personas de escasos recursos y necesita saber, para 
 
 | Integrante | Carné | Rol principal | Responsabilidades | Archivos |
 |---|---|---|---|---|
-| Javier Rivera | _pendiente_ | Coordinación, apertura e integración | Repositorio, apertura de expedientes, integración de aportes, README, pruebas finales y commits de hitos. | `js/app.js`, `js/storage.js`, `index.html`, `css/styles.css`, `README.md` |
+| Javier Rivera | 1790-22-10552 | Coordinación, apertura e integración | Repositorio, apertura de expedientes, integración de aportes, README, pruebas finales y commits de hitos. | `js/app.js`, `js/storage.js`, `index.html`, `css/styles.css`, `README.md` |
 | Karla Waleska Rodríguez Arévalo | 1790-22-9763 | Consulta | Listado, búsqueda por identificador o persona, detalle e historial cronológico. | `js/consulta.js`, `css/consulta.css` |
 | Nahomi Suseth López Andrade | 1790-23-21320 | Seguimiento | Registro de actividades, cambios de estado y cierre con sus reglas (R3–R8). | `js/seguimiento.js`, `css/seguimiento.css` |
 
