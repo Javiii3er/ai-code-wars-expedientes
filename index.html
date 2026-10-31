@@ -10,14 +10,23 @@
 </head>
 <body>
   <header class="app-header">
-    <h1>Expedientes – Bufete Popular</h1>
-    <p class="aviso">Prototipo con datos ficticios. No brinda asesoría jurídica.</p>
+    <div class="header-contenido">
+      <div class="marca">
+        <span class="marca-icono" aria-hidden="true">⚖</span>
+        <div>
+          <h1>Bufete Popular</h1>
+          <p class="subtitulo">Gestión de expedientes</p>
+        </div>
+      </div>
+      <p class="aviso">Prototipo con datos ficticios · No brinda asesoría jurídica</p>
+    </div>
   </header>
 
   <main id="app">
     <div id="mensaje" class="mensaje" role="status" aria-live="polite" hidden></div>
 
-    <section class="tarjeta" aria-labelledby="titulo-apertura">
+    <div class="layout">
+    <section class="tarjeta tarjeta-apertura" aria-labelledby="titulo-apertura">
       <h2 id="titulo-apertura">Abrir expediente</h2>
       <p class="ayuda">Los campos marcados con * son obligatorios. Use nombres ficticios o alias.</p>
 
@@ -59,12 +68,16 @@
       <h2 id="titulo-listado">Expedientes</h2>
     </section>
 
+    </div>
+
     <!-- Compañera 1 (js/consulta.js): detalle e historial.
          Dentro, Compañera 2 (js/seguimiento.js) dibuja en #acciones-expediente. -->
     <section class="tarjeta" id="seccion-detalle" aria-labelledby="titulo-detalle" hidden>
       <h2 id="titulo-detalle">Detalle del expediente</h2>
     </section>
   </main>
+
+  <footer class="app-footer">AI Code Wars 2026 · UMG Chiquimulilla · Prototipo académico</footer>
 
   <script src="js/storage.js"></script>
   <script src="js/app.js"></script>
