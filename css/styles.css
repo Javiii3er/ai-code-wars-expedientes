@@ -125,6 +125,20 @@ main {
   font-weight: 600;
 }
 
+.form-reapertura,
+.cierres-anteriores {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e1e4e8;
+}
+
+.form-reapertura h3,
+.cierres-anteriores h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--color-primario);
+}
+
 .mensaje.exito {
   background: #e3f4e7;
   color: var(--color-exito);

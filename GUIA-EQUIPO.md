@@ -1,4 +1,4 @@
-# Guía del equipo – cómo trabajar con su IA
+﻿# Guía del equipo – cómo trabajar con su IA
 
 Esta guía explica a cada integrante **qué le toca**, **cómo preparar su computadora** y **qué escribirle a su IA** para que entienda el contexto.
 
@@ -19,6 +19,14 @@ Esta guía explica a cada integrante **qué le toca**, **cómo preparar su compu
 4. Abrir en Visual Studio 2022: **Archivo → Abrir → Carpeta** → `ai-code-wars-expedientes`.
 5. Ver la app: clic derecho en `index.html` → **Ver en el explorador**.
 
+## Comprobar su parte automáticamente
+
+Abran `pruebas.html` igual que `index.html`. Ahí se ejecutan las comprobaciones de las reglas, en verde las que cumplen y en rojo las que fallan, con el motivo. No borra los expedientes guardados.
+- Karla: debe pasar todo el bloque **Recorrido 2 – Consulta y búsqueda**.
+- Nahomi: debe pasar todo el bloque **Recorrido 3 – Seguimiento y cierre** y **Persistencia**.
+
+Si una prueba falla y creen que la prueba está mal, avisen a Javier. No modifiquen `js/pruebas.js`.
+
 ## Reglas de trabajo
 
 - **Solo editar sus propios archivos** (ver tabla). Así no hay conflictos.
@@ -29,15 +37,15 @@ Esta guía explica a cada integrante **qué le toca**, **cómo preparar su compu
 
 | Integrante | Le toca | Archivos que puede editar |
 |---|---|---|
-| Compañera 1 | Listado, búsqueda, detalle e historial | `js/consulta.js`, `css/consulta.css` |
-| Compañera 2 | Actividades, estados y cierre | `js/seguimiento.js`, `css/seguimiento.css` |
+| Karla (Compañera 1) | Listado, búsqueda, detalle e historial | `js/consulta.js`, `css/consulta.css` |
+| Nahomi (Compañera 2) | Actividades, estados y cierre | `js/seguimiento.js`, `css/seguimiento.css` |
 | Javier | Apertura, integración, README, pruebas | `js/app.js`, `index.html`, `css/styles.css`, `README.md` |
 
 Si necesitan cambiar un archivo que no es suyo, avisen primero en el grupo.
 
 ---
 
-## 1. Compañera 1 – Consulta, búsqueda y detalle
+## 1. Karla (Compañera 1) – Consulta, búsqueda y detalle
 
 ### Prompt para su IA (copiar y pegar completo)
 
@@ -71,7 +79,7 @@ Si necesitan cambiar un archivo que no es suyo, avisen primero en el grupo.
 
 ---
 
-## 2. Compañera 2 – Actividades, estados y cierre
+## 2. Nahomi (Compañera 2) – Actividades, estados y cierre
 
 ### Prompt para su IA (copiar y pegar completo)
 
