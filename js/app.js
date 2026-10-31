@@ -164,6 +164,9 @@ function manejarApertura(evento) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("form-apertura").addEventListener("submit", manejarApertura);
+  // pruebas.html carga este archivo sin la interfaz principal.
+  const form = document.getElementById("form-apertura");
+  if (!form) return;
+  form.addEventListener("submit", manejarApertura);
   actualizarListado();
 });
