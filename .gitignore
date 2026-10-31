@@ -13,3 +13,6 @@ Desktop.ini
 
 # Node (por si se usa alguna herramienta)
 node_modules/
+
+# Configuración local de Claude Code
+.claude/

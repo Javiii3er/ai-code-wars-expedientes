@@ -13,7 +13,44 @@
   </header>
 
   <main id="app">
-    <!-- Las vistas se agregarán durante el desarrollo -->
+    <div id="mensaje" class="mensaje" role="status" aria-live="polite" hidden></div>
+
+    <section class="tarjeta" aria-labelledby="titulo-apertura">
+      <h2 id="titulo-apertura">Abrir expediente</h2>
+      <p class="ayuda">Los campos marcados con * son obligatorios. Use nombres ficticios o alias.</p>
+
+      <form id="form-apertura" novalidate>
+        <div class="campo">
+          <label for="persona">Persona solicitante (nombre ficticio o alias) *</label>
+          <input type="text" id="persona" name="persona" maxlength="100" autocomplete="off">
+          <p class="error-campo" id="error-persona"></p>
+        </div>
+
+        <div class="campo">
+          <label for="asunto">Descripción breve del asunto *</label>
+          <textarea id="asunto" name="asunto" rows="3" maxlength="500"></textarea>
+          <p class="error-campo" id="error-asunto"></p>
+        </div>
+
+        <div class="campo">
+          <label for="responsable">Responsable *</label>
+          <input type="text" id="responsable" name="responsable" maxlength="100" autocomplete="off">
+          <p class="error-campo" id="error-responsable"></p>
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoría (opcional)</label>
+          <select id="categoria" name="categoria">
+            <option value="">Sin categoría</option>
+            <option value="Civil">Civil</option>
+            <option value="Familiar">Familiar</option>
+            <option value="Laboral">Laboral</option>
+          </select>
+        </div>
+
+        <button type="submit" class="boton boton-primario">Abrir expediente</button>
+      </form>
+    </section>
   </main>
 
   <script src="js/storage.js"></script>
