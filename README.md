@@ -76,7 +76,7 @@ El Bufete Popular atiende a personas de escasos recursos y necesita saber, para 
 |---|---|---|---|---|
 | Javier Rivera | 1790-22-10552 | Coordinación, apertura e integración | Repositorio, apertura de expedientes, integración de aportes, README, pruebas finales y commits de hitos. | `js/app.js`, `js/storage.js`, `index.html`, `css/styles.css`, `README.md` |
 | Karla Waleska Rodríguez Arévalo | 1790-22-9763 | Consulta | Listado, búsqueda por identificador o persona, detalle e historial cronológico. | `js/consulta.js`, `css/consulta.css` |
-| Nahomi Suseth López Andrade | 1790-23-21320 | Seguimiento | Registro de actividades, cambios de estado y cierre con sus reglas (R3–R8). | `js/seguimiento.js`, `css/seguimiento.css` |
+| Nahomi Suseth López Andrade | 1790-23-21320 | Seguimiento (apoyo) | Asignada a actividades, estados y cierre. No logró completar su parte a tiempo; Javier la implementó y la integró. | `js/seguimiento.js`, `css/seguimiento.css` |
 
 Las tres integrantes aportan una de las tres decisiones con IA (sección 5) y comprueban su propia parte; Javier ejecuta los recorridos completos.
 
@@ -153,7 +153,7 @@ Herramienta usada: Claude (asistente de IA). Cada integrante registró una decis
 |---|---|---|---|---|
 | 1 | **Identificador único de cada expediente** (Javier). Debía ser automático, no repetirse y ser fácil de buscar. | Propuso un contador guardado junto con los datos para generar `EXP-0001`, `EXP-0002`… Se compararon alternativas: `Date.now()` y `crypto.randomUUID()`. | **Aceptado el contador.** Se descartó `Date.now()` porque dos aperturas en el mismo milisegundo pueden repetir el ID, y el UUID porque es largo y difícil de dictar o buscar. El contador se guarda en `localStorage` para que no se reinicie al recargar (R2). Se mantiene el formato de 4 dígitos. | Se crearon 2 expedientes (`EXP-0001`, `EXP-0002`), se recargó la página y el siguiente fue `EXP-0003`: no se repitió. |
 | 2 | **Parte 2: Reabrir expediente** (Javier). Cerrado → En seguimiento con motivo obligatorio, sin perder cierres previos. **Impacto:** modifica R8, que prohibía cambiar el estado de un cerrado; el modelo guardaba un solo `motivoCierre`/`fechaCierre`, que un segundo cierre habría sobrescrito. | Propuso dos opciones: (a) convertir el cierre en una lista `cierres[]`, cambiando el código de cierre ya repartido; o (b) al reabrir, mover el cierre actual a `cierresAnteriores[]` y registrar un evento `cambio_estado` con motivo. También propuso agregar la acción en un archivo nuevo que extiende `renderAcciones`. | **Elegimos (b)** porque no obliga a cambiar `seguimiento.js`, que otra integrante estaba desarrollando en paralelo, y evita conflictos. La regla se valida en `reabrirExpediente()` (lógica), no solo en la interfaz, como pide el enunciado. Se agregó `obtenerCierres()` para listar todos los cierres. | `pruebas.html`, bloque *Recorrido 4*: rechaza motivo vacío o de espacios; rechaza reabrir en Abierto o En seguimiento; al reabrir conserva ID, datos, actividades y el cierre previo y registra un evento con fecha, motivo y transición. |
-| 3 | | | | |
+| 3 | **Reglas de cierre en la lógica y no solo en la interfaz** (seguimiento). Debía impedirse cerrar sin actividad o sin motivo y bloquear actividades en Cerrado. | Propuso solo ocultar los botones según el estado, más una función común `ejecutarAccion` para mostrar errores y refrescar la vista. | **Modificado:** ocultar botones no basta, porque una llamada directa a la función saltaría la regla. Cada función (`agregarActividad`, `pasarASeguimiento`, `cerrarExpediente`) valida el estado y devuelve un error claro; la interfaz además oculta lo que no corresponde. Se aceptó `ejecutarAccion` para no repetir código. | `pruebas.html` llama a las funciones directamente, sin la interfaz: cierre sin actividad, sin motivo y desde Abierto rechazados; actividades y cambios en Cerrado rechazados. Recorrido manual en la app con los mismos casos. |
 
 ---
 
@@ -166,14 +166,16 @@ Además, `pruebas.html` ejecuta 23 comprobaciones automáticas de las reglas, ag
 |---|---|---|
 | 1. Apertura | Enviar el formulario vacío mostró 3 errores, uno por campo obligatorio. Persona y responsable con solo espacios: rechazados con error en esos 2 campos; el asunto válido no se marcó. Dos aperturas válidas generaron `EXP-0001` y `EXP-0002` con estado *Abierto*, fecha y hora, y la entrada "Expediente abierto" en el historial. Los espacios al inicio y al final se eliminan al guardar. | Cumple |
 | 2. Consulta | El listado muestra identificador, persona, responsable y estado. Buscar `EXP-0001`, `exp-0001` o parte del nombre (`aNa`) encuentra el expediente correcto; un texto inexistente muestra «No se encontraron expedientes para…». *Ver detalle* muestra todos los datos y el historial en orden cronológico, con apertura, actividades y cambios de estado en colores y etiquetas distintos. `pruebas.html`: 7/7. | Cumple |
-| 3. Seguimiento y cierre | _Pendiente: se probará al integrar `seguimiento.js`._ | — |
-| 4. Reapertura y trazabilidad | Lógica de reapertura verificada: rechaza motivo vacío o de espacios y reaperturas en Abierto o En seguimiento; reabre a En seguimiento conservando ID, datos, actividades y el cierre anterior, con evento en el historial. _Pendiente: flujo completo de segundo cierre y recarga al integrar `seguimiento.js`._ | Parcial |
-| Persistencia al recargar | Tras recargar, los expedientes creados siguen en `localStorage` y el contador continúa (`EXP-0003`). Falta repetirla con actividades y cierre. | Parcial |
+| 3. Seguimiento y cierre | Actividad vacía o de espacios: rechazada con mensaje. Actividad válida: aparece en el historial como entrada independiente. *Pasar a En seguimiento* registra el cambio de estado. Cerrar sin motivo: rechazado; cerrar sin actividades o desde Abierto: rechazado (pruebas automáticas). Cerrar con actividad y motivo: estado Cerrado con fecha y motivo. Ya cerrado, no se muestra el formulario de actividades y la lógica también las rechaza. `pruebas.html`: 9/9. | Cumple |
+| 4. Reapertura y trazabilidad | Reabrir con motivo vacío: rechazado. Reabrir en Abierto o En seguimiento: rechazado por la lógica. Se reabrió EXP-0001 con motivo, se agregó una actividad y se cerró de nuevo: estado Cerrado, *Cierres anteriores* muestra el primer cierre con fecha y motivo, el actual muestra el segundo, y el historial conserva las 7 entradas. Tras recargar, todo se mantiene. `pruebas.html`: 4/4. | Cumple |
+| Persistencia al recargar | Tras recargar se conservan expedientes, actividades, estados, ambos cierres y el contador de IDs. `pruebas.html`: 2/2. Total: **27/27**. | Cumple |
 
 ---
 
 ## 7. Expedientes de demostración
-_Pendiente._
+Se crean desde la app (no hay generador de datos):
+- **EXP-0001**: Ana M. · Pensión alimenticia · Lic. Pérez · Familiar. Recorrido completo: actividades, seguimiento, cierre, reapertura y segundo cierre.
+- **EXP-0002**: Luis R. · Despido sin pago · Lic. Gómez. Queda Abierto para mostrar el registro de actividades.
 
 ## 8. Limitaciones conocidas
 - Los datos viven solo en el navegador donde se crearon; no se comparten entre equipos ni entre navegadores.
